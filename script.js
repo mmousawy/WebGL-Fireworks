@@ -25,6 +25,8 @@
 		friction: .98
 	};
 
+	const bundle_texture = THREE.ImageUtils.loadTexture( 'images/bundle_texture.png' );
+
 	document.addEventListener('DOMContentLoaded', onDocumentReady);
 	
 	function onDocumentReady() {
@@ -165,6 +167,14 @@
 		const flares_geometry = new THREE.Geometry();
 		const flares = [];
 		const color = new THREE.Color(.5 + Math.random(), .5 + Math.random(), .5 + Math.random());
+
+		const sprite_material = new THREE.SpriteMaterial( { map: bundle_texture } );
+		sprite_material.transparent = true;
+		sprite_material.blending = THREE['AdditiveBlending'];
+		const sprite = new THREE.Sprite( sprite_material );
+		sprite.position.set(position.x, position.y, position.z);
+		sprite.scale.set( 1, 1, 1000.0 ); // imageWidth, imageHeight
+		scene.add( sprite );
 
 		for (let i = 0; i < 300; i++) {
 			const angle = Math.random()*Math.PI*2;
